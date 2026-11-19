@@ -1,4 +1,4 @@
-import { Mail, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import { Reveal } from "@/components/fx/Reveal";
 import { site, whatsappLink } from "@/lib/site";
@@ -24,14 +24,8 @@ export function Contact({ defaultInterest }: { defaultInterest?: ContactInput["i
               <MessageCircle className="size-6 text-codex-300" />
               <span>
                 <span className="block text-xs font-semibold text-white/50 uppercase">WhatsApp</span>
-                <span className="font-bold">Fale agora com um especialista</span>
-              </span>
-            </a>
-            <a href={`mailto:${site.email}`} className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-codex-300/50">
-              <Mail className="size-6 text-codex-300" />
-              <span>
-                <span className="block text-xs font-semibold text-white/50 uppercase">E-mail</span>
-                <span className="font-bold">{site.email}</span>
+                <span className="font-bold">{site.whatsappDisplay}</span>
+                <span className="block text-sm text-white/60">Fale agora com um especialista</span>
               </span>
             </a>
           </div>

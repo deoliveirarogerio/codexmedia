@@ -61,7 +61,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             logo: `${site.url}/logo-codex.png`,
             image: `${site.url}/images/team.jpg`,
             description: site.description,
-            email: site.email,
+            telephone: `+${site.whatsapp}`,
+            contactPoint: { "@type": "ContactPoint", contactType: "sales", telephone: `+${site.whatsapp}`, availableLanguage: "Portuguese" },
             areaServed: "BR",
             sameAs: [site.instagram, site.linkedin],
             hasOfferCatalog: {
