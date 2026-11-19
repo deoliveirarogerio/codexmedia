@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+/* Paleta extraída da marca Codex Media: roxo profundo (CODEX) + cinza (MEDIA) */
+@theme {
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+
+  --color-codex-50: #f5f2fb;
+  --color-codex-100: #ebe4f7;
+  --color-codex-200: #d6c8ef;
+  --color-codex-300: #b79fe2;
+  --color-codex-400: #9472d0;
+  --color-codex-500: #744cba;
+  --color-codex-600: #5a339c;
+  --color-codex-700: #45237d;
+  --color-codex-800: #341761;  /* cor principal do logotipo */
+  --color-codex-900: #24104a;
+  --color-codex-950: #150833;
+
+  --color-media-300: #b4b4b7;
+  --color-media-400: #96969a;
+  --color-media-500: #7a7a7e;  /* cinza do logotipo */
+  --color-media-600: #5f5f63;
+
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-marquee: marquee 30s linear infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-white text-codex-950 font-sans;
+  }
+  ::selection {
+    @apply bg-codex-700 text-white;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-codex-500;
+  }
+}
+
+@utility container-x {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+@utility eyebrow {
+  @apply inline-flex items-center gap-2 rounded-full border border-codex-200 bg-codex-50 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-codex-700 uppercase;
+}
+@utility eyebrow-dark {
+  @apply inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-codex-200 uppercase;
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-3 text-sm font-bold tracking-wide transition duration-200 active:scale-[0.98];
+}
+@utility btn-primary {
+  @apply btn bg-codex-700 text-white shadow-lg shadow-codex-900/25 hover:bg-codex-600;
+}
+@utility btn-light {
+  @apply btn bg-white text-codex-800 hover:bg-codex-50;
+}
+@utility btn-ghost {
+  @apply btn border border-white/25 text-white hover:bg-white/10;
+}
+@utility btn-outline {
+  @apply btn border border-codex-200 text-codex-800 hover:border-codex-400 hover:bg-codex-50;
+}
+@utility heading {
+  @apply text-3xl font-extrabold tracking-tight text-balance sm:text-4xl lg:text-5xl;
+}
+@utility text-gradient {
+  @apply bg-gradient-to-r from-codex-300 via-white to-media-300 bg-clip-text text-transparent;
+}
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Revelação ao rolar (ativada pelo componente <Reveal />) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-float, .animate-marquee { animation: none !important; }
+}
