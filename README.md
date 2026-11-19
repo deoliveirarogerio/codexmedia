@@ -17,11 +17,12 @@ npm run dev                  # http://localhost:3000
 npm run build && npm start   # produção
 ```
 
-## Publicação (GitHub Pages)
-O site é exportado como HTML estático (`output: "export"`) e publicado pelo workflow `.github/workflows/deploy.yml` a cada push na `main`.
-- Em **Settings → Pages**, a fonte deve ser **GitHub Actions**.
-- WhatsApp e webhook podem ser definidos em **Settings → Secrets and variables → Actions → Variables** (`NEXT_PUBLIC_WHATSAPP`, `NEXT_PUBLIC_CONTACT_WEBHOOK_URL`).
-- Com domínio próprio, remova `NEXT_PUBLIC_BASE_PATH` do workflow e ajuste `NEXT_PUBLIC_SITE_URL`.
+## Publicação
+O site é exportado como HTML estático (`output: "export"`) e hospedado na Rapid Cloud em https://codexmedia.com.br.
+```bash
+npm run build      # gera a pasta out/ (use NEXT_PUBLIC_SITE_URL=https://codexmedia.com.br)
+```
+Envie o conteúdo de `out/` (inclusive o `.htaccess`) para a pasta pública do domínio.
 
 ## Estrutura
 ```
