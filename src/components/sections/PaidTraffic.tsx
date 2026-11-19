@@ -31,9 +31,9 @@ export function PaidTraffic() {
             const Icon = s.icon;
             return (
               <ScrollPerspective key={c.slug} fromRotateX={14} fromRotateY={i === 0 ? 16 : -16} fromScale={0.92}>
-                <Tilt max={6} className="group rounded-[2rem]">
-                  <article className="relative h-full overflow-hidden rounded-[2rem] bg-codex-900 text-white shadow-2xl shadow-codex-900/30">
-                    <div className="relative h-64">
+                <Tilt max={6} className="group rounded-[2rem] shadow-2xl shadow-codex-900/30">
+                  <article className="relative isolate h-full overflow-hidden rounded-[2rem] bg-codex-900 text-white [clip-path:inset(0_round_2rem)]">
+                    <div className="relative h-64 overflow-hidden">
                       <Image src={s.image} alt={s.imageAlt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover opacity-70 transition duration-700 group-hover:scale-105" />
                       <div className="absolute inset-0 bg-gradient-to-t from-codex-900 via-codex-900/50 to-transparent" />
                       <span className="absolute top-5 left-6 rounded-full bg-white/15 px-3 py-1 text-xs font-bold tracking-wider uppercase backdrop-blur">{c.badge}</span>
