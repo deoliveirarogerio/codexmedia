@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { contactSchema, interests, type ContactInput } from "@/lib/contact-schema";
+import { whatsappLink } from "@/lib/site";
 
 type Errors = Partial<Record<keyof ContactInput, string>>;
 type Status = "idle" | "loading" | "success" | "error";
@@ -25,12 +26,39 @@ export function ContactForm({ defaultInterest }: { defaultInterest?: ContactInpu
       return;
     }
     setErrors({});
+    const { website, ...lead } = parsed.data;
+    // Honeypot preenchido = bot. Finge sucesso sem enviar.
+    if (website) {
+      setStatus("success");
+      form.reset();
+      return;
+    }
+    // Site estático (GitHub Pages): sem servidor próprio. Envia direto ao webhook
+    // (n8n, Make, Zapier, CRM) ou, se não houver, abre o WhatsApp com os dados.
+    const webhook = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL;
+    if (!webhook) {
+      const msg = [
+        "Olá! Vim pelo site da Codex Media.",
+        `Nome: ${lead.name}`,
+        lead.company && `Empresa: ${lead.company}`,
+        `E-mail: ${lead.email}`,
+        `WhatsApp: ${lead.phone}`,
+        `Interesse: ${lead.interest}`,
+        lead.message && `Mensagem: ${lead.message}`,
+      ]
+        .filter(Boolean)
+        .join("\n");
+      window.open(whatsappLink(msg), "_blank", "noopener,noreferrer");
+      setStatus("success");
+      form.reset();
+      return;
+    }
     setStatus("loading");
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(webhook, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(parsed.data),
+        body: JSON.stringify({ ...lead, source: "site-codexmedia", createdAt: new Date().toISOString() }),
       });
       if (!res.ok) throw new Error();
       setStatus("success");

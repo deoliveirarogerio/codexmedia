@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     images: [{ url: "/images/team.jpg", width: 1400, height: 933, alt: "Codex Media — marketing digital e desenvolvimento web" }],
   },
   twitter: { card: "summary_large_image" },
-  icons: { icon: "/icon.svg" },
+  icons: { icon: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/icon.svg` },
 };
 
 export const viewport: Viewport = {

@@ -17,13 +17,18 @@ npm run dev                  # http://localhost:3000
 npm run build && npm start   # produção
 ```
 
+## Publicação (GitHub Pages)
+O site é exportado como HTML estático (`output: "export"`) e publicado pelo workflow `.github/workflows/deploy.yml` a cada push na `main`.
+- Em **Settings → Pages**, a fonte deve ser **GitHub Actions**.
+- WhatsApp e webhook podem ser definidos em **Settings → Secrets and variables → Actions → Variables** (`NEXT_PUBLIC_WHATSAPP`, `NEXT_PUBLIC_CONTACT_WEBHOOK_URL`).
+- Com domínio próprio, remova `NEXT_PUBLIC_BASE_PATH` do workflow e ajuste `NEXT_PUBLIC_SITE_URL`.
+
 ## Estrutura
 ```
 src/
   app/
     page.tsx                  home
     servicos/[slug]/page.tsx  páginas de serviço (SSG)
-    api/contact/route.ts      recebe leads -> CONTACT_WEBHOOK_URL
     sitemap.ts, robots.ts     SEO + liberação de crawlers de IA (GEO)
   components/
     sections/                 seções da home
@@ -51,6 +56,6 @@ sitemap, robots liberando GPTBot/PerplexityBot/ClaudeBot/Google-Extended, HTML e
 
 ## Pendências antes de publicar
 - Substituir no `.env.local`/`src/lib/site.ts`: WhatsApp real, e-mail, Instagram, LinkedIn e domínio.
-- Configurar `CONTACT_WEBHOOK_URL` (n8n, Make, Zapier ou CRM). Sem ele, os leads só aparecem no log do servidor.
+- Configurar `NEXT_PUBLIC_CONTACT_WEBHOOK_URL` (n8n, Make, Zapier ou CRM; precisa aceitar CORS). Sem ele, o formulário abre o WhatsApp com os dados preenchidos.
 - As fotos são do Unsplash (licença livre). Troque por fotos reais da equipe e de cases quando houver.
 - O card "Resposta gerada por IA" e a nota "PageSpeed 98" são ilustrações, não métricas reais.
